@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { fetchMedia } from '/src/api/mediaApi';
 import Footers from '/src/component/footer/Footer';
 import Navbar from '/src/component/header/Navbar';
 import Image1 from '/src/assets/images/media1.jpg';
@@ -10,23 +10,24 @@ const Media = () => {
   const [mediaList, setMediaList] = useState([]);
   const [visibleCount, setVisibleCount] = useState(6);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchMedia = async () => {
+    const loadMedia = async () => {
       setIsLoading(true);
+      setError(null);
       try {
-        const response = await axios.get(
-          'https://jsonplaceholder.typicode.com/posts'
-        );
-        setMediaList(response.data);
+        const data = await fetchMedia();
+        setMediaList(data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error loading media:', error);
+        setError('Failed to load media.');
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchMedia();
+    loadMedia();
   }, []);
 
   const handleLoadMore = () => {
@@ -53,6 +54,12 @@ const Media = () => {
         {isLoading ? (
           <div className="col-span-3 text-center">
             <div className="loader">Loading...</div>
+          </div>
+        ) : error ? (
+          <div className="col-span-3 text-center text-red-500">{error}</div>
+        ) : mediaList.length === 0 ? (
+          <div className="col-span-3 text-center text-gray-500">
+            No media available.
           </div>
         ) : (
           mediaList.slice(0, visibleCount).map((media, index) => (
@@ -95,5 +102,4 @@ const Media = () => {
     </div>
   );
 };
-
 export default Media;
