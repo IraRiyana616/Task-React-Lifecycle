@@ -1,8 +1,7 @@
-# React + Vite
+# Day 4 - Hacker FE Task
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Membuat tampilan media dengan cara get API pakai axios
+2. Halaman media memiliki render list dengan title dan deskripsi
+3. Tampilkan pertama kali hanya 6 
+4. Buat tombol 'load more', jika di klik, akan memanggil 6 data lagi
+5. Jika data telah habis maka button 'load more' akan disable 
